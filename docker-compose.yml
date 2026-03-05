@@ -1,0 +1,11 @@
+# docker-compose.yml
+services:
+  stock-pipeline:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./stock_data.db:/app/stock_data.db
+    environment:
+      - FLASK_ENV=production
+    restart: unless-stopped
