@@ -6,109 +6,79 @@
 ![Polars](https://img.shields.io/badge/Polars-CD792C?style=flat&logo=polars&logoColor=white)
 ![Chart.js](https://img.shields.io/badge/Chart.js-FF6384?style=flat&logo=chartdotjs&logoColor=white)
 
-A full **ETL data pipeline** that extracts live stock market data, transforms it with financial indicators, stores it in SQLite, and visualizes it in a real-time Chart.js dashboard — served via a Flask REST API.
+A full ETL pipeline that pulls live stock data, runs some financial calculations on it, stores everything in a database, and displays it in a dashboard. Built this to actually understand what a data pipeline looks like end to end — not just a script that prints stuff.
 
 ---
 
-## Architecture
-```
-yfinance API
-     ↓
-[Extract] → raw OHLCV data
-     ↓
-[Transform] → moving averages, % change, volatility
-     ↓
-[Load] → SQLite database
-     ↓
-[Flask API] → REST endpoints
-     ↓
-[Chart.js Dashboard] → live visualization
-```
+## Why I built this
+
+I kept seeing "ETL pipeline" on job descriptions and didn't really know what it meant beyond "extract transform load". So I built one. Wanted something that felt like a real project a company might actually use, not just another tutorial clone.
+
+Also wanted to get comfortable with the full stack side of data — most data projects I'd seen just ended at a jupyter notebook. This one goes all the way from raw API data to a live dashboard with a proper backend.
 
 ---
 
-## Features
+## What it does
 
-- **Extract** — pulls 3 months of daily OHLCV data for 5 tickers via `yfinance`
-- **Transform** — calculates SMA 20, SMA 50, daily % change, and 20-day volatility using `polars`
-- **Load** — stores cleaned data in a local `SQLite` database
-- **API** — Flask REST API with `/api/tickers`, `/api/latest`, `/api/stock/<ticker>` endpoints
-- **Dashboard** — dark-themed Chart.js frontend with price charts, moving averages, and % change bars
-
----
-
-## Project Structure
-```
-stock-pipeline/
-├── etl/
-│   ├── extract.py       # yfinance data pull
-│   ├── transform.py     # polars transformations
-│   └── load.py          # SQLite loader
-├── static/
-│   ├── css/style.css    # dashboard styles
-│   └── js/dashboard.js  # Chart.js frontend
-├── templates/
-│   └── index.html       # dashboard HTML
-├── app.py               # Flask API
-├── config.py            # settings (tickers, DB path)
-├── run_pipeline.py      # single command ETL runner
-├── pyproject.toml       # editable package config
-└── requirements.txt
-```
+- **Extracts** daily OHLCV stock data for 5 tickers (AAPL, MSFT, GOOGL, NVDA, TSLA) from yfinance
+- **Transforms** it with Polars — calculates 20/50 day moving averages, daily % change, and rolling volatility
+- **Loads** the cleaned data into a SQLite database
+- **Serves** it via a Flask REST API
+- **Visualizes** it in a Chart.js dashboard with price charts and % change bars
 
 ---
 
-## Setup
-```bash
-# 1. Clone the repo
-git clone https://github.com/YOUR_USERNAME/stock-pipeline.git
-cd stock-pipeline
+## What I learned
 
-# 2. Create and activate virtual environment
-python3 -m venv venv
-source venv/bin/activate
+Honestly this project taught me more than I expected:
 
-# 3. Install dependencies
-pip install -r requirements.txt
-pip install -e .
-
-# 4. Run the ETL pipeline
-python run_pipeline.py
-
-# 5. Start the dashboard
-python app.py
-```
-
-Then open `http://127.0.0.1:5000` in your browser.
-
----
-
-##  API Endpoints
-
-| Endpoint | Description |
-|---|---|
-| `GET /` | Dashboard UI |
-| `GET /api/tickers` | List of all tracked tickers |
-| `GET /api/latest` | Latest price + % change for all tickers |
-| `GET /api/stock/<ticker>` | Full historical data for a ticker |
+- **How Python imports actually work** — ran into module resolution issues early on and had to learn about editable installs with `pyproject.toml` properly instead of just hacking `sys.path`
+- **Polars vs Pandas** — hadn't used Polars before. It's faster and the syntax is cleaner once you get used to it. The `.over()` for window functions is really nice
+- **Docker** — understood the concept before but actually containerizing a real app with a database and making it work was a different thing
+- **CI/CD** — setting up GitHub Actions to test the pipeline on every push felt like a big step up from just pushing code and hoping it works
+- **Why separation of concerns matters** — keeping extract, transform, and load in separate files made debugging so much easier than if it was all in one script
 
 ---
 
 ## Stack
 
-| Layer | Technology |
+| Layer | Tech |
 |---|---|
 | Data extraction | `yfinance` |
 | Data transformation | `polars` |
 | Database | `SQLite` |
-| Backend API | `Flask` |
+| Backend | `Flask` |
 | Frontend | `Chart.js` |
+| Container | `Docker` |
+| CI/CD | `GitHub Actions` |
+| Hosting | `Railway` |
 
 ---
 
-## How to refresh data
+## Live demo
+
+🔗 [your-railway-url.railway.app](https://your-railway-url.railway.app)
+
+---
+
+## Run it locally
 ```bash
+git clone https://github.com/YOUR_USERNAME/stock-pipeline.git
+cd stock-pipeline
+
+python3 -m venv venv
+source venv/bin/activate
+
+pip install -r requirements.txt
+pip install -e .
+
 python run_pipeline.py
+python app.py
 ```
 
-Re-run this any time to pull the latest market data and update the database.
+Then open `http://localhost:5000`.
+
+Or with Docker:
+```bash
+docker compose up
+```
