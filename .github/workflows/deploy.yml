@@ -34,12 +34,3 @@ jobs:
           print(f'✅ DB check passed — {count} rows')
           conn.close()
           "
-
-  deploy:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Trigger Railway deployment
-        run: |
-          curl -X POST "${{ secrets.RAILWAY_WEBHOOK_URL }}"
