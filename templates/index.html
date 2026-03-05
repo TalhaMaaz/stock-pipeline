@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stock Pipeline Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>📈 Stock Market Dashboard</h1>
+    <p class="subtitle">Live ETL Pipeline — Python + Flask + SQLite</p>
+  </header>
+
+  <section id="ticker-cards"></section>
+
+  <section id="controls">
+    <div id="ticker-buttons"></div>
+  </section>
+
+  <section id="charts">
+    <div class="chart-box">
+      <h2 id="price-title">Price & Moving Averages</h2>
+      <canvas id="priceChart"></canvas>
+    </div>
+    <div class="chart-box">
+      <h2 id="pct-title">Daily % Change</h2>
+      <canvas id="pctChart"></canvas>
+    </div>
+  </section>
+
+  <script src="/static/js/dashboard.js"></script>
+</body>
+</html>
