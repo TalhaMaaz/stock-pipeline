@@ -10,7 +10,7 @@ A full **ETL data pipeline** that extracts live stock market data, transforms it
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 ```
 yfinance API
      ↓
@@ -27,7 +27,7 @@ yfinance API
 
 ---
 
-## 🚀 Features
+## Features
 
 - **Extract** — pulls 3 months of daily OHLCV data for 5 tickers via `yfinance`
 - **Transform** — calculates SMA 20, SMA 50, daily % change, and 20-day volatility using `polars`
@@ -37,7 +37,7 @@ yfinance API
 
 ---
 
-## 🗂️ Project Structure
+## Project Structure
 ```
 stock-pipeline/
 ├── etl/
@@ -58,7 +58,7 @@ stock-pipeline/
 
 ---
 
-## ⚙️ Setup
+## Setup
 ```bash
 # 1. Clone the repo
 git clone https://github.com/YOUR_USERNAME/stock-pipeline.git
@@ -83,7 +83,7 @@ Then open `http://127.0.0.1:5000` in your browser.
 
 ---
 
-## 📡 API Endpoints
+##  API Endpoints
 
 | Endpoint | Description |
 |---|---|
@@ -94,7 +94,7 @@ Then open `http://127.0.0.1:5000` in your browser.
 
 ---
 
-## 🛠️ Stack
+## Stack
 
 | Layer | Technology |
 |---|---|
@@ -106,7 +106,7 @@ Then open `http://127.0.0.1:5000` in your browser.
 
 ---
 
-## 💡 How to refresh data
+## How to refresh data
 ```bash
 python run_pipeline.py
 ```
