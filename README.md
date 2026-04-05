@@ -57,7 +57,7 @@ Honestly this project taught me more than I expected:
 
 ## Live demo
 
-🔗 [your-railway-url.railway.app](https://your-railway-url.railway.app)
+🔗 [stock-pipeline-production]([https://your-railway-url.railway.app](https://stock-pipeline-production.up.railway.app/))
 
 ---
 
