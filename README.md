@@ -57,7 +57,7 @@ Honestly this project taught me more than I expected:
 
 ## Live demo
 
-🔗 [https://stock-pipeline-production.up.railway.app/]([https://your-railway-url.railway.app](https://stock-pipeline-production.up.railway.app/))
+🔗 ! [stock-pipeline-DEMO]([https://your-railway-url.railway.app](https://stock-pipeline-production.up.railway.app/))
 
 ---
 
@@ -75,8 +75,6 @@ pip install -e .
 python run_pipeline.py
 python app.py
 ```
-
-Then open `http://localhost:5000`.
 
 Or with Docker:
 ```bash
